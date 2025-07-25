@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Avo Hero Slider</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .carousel-item {
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .carousel-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 1;
+    }
+
+    .carousel-content {
+      position: absolute;
+      top: 50%;
+      left: 5%;
+      z-index: 2;
+      transform: translateY(-50%);
+      color: white;
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+
+    .hero-subtext {
+      font-size: 1.1rem;
+      margin-top: 15px;
+      color: #ccc;
+    }
+
+    .btn-explore {
+      background-color: #dc3545;
+      border: none;
+      padding: 10px 25px;
+      margin-top: 25px;
+      font-weight: bold;
+    }
+
+    .right-side-content {
+      position: absolute;
+      right: 10%;
+      bottom: 20%;
+      text-align: center;
+      z-index: 2;
+      color: white;
+    }
+
+    .experience-years {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #dc3545;
+    }
+
+    .experience-text {
+      color: #ccc;
+      font-size: 1rem;
+    }
+
+    .play-btn {
+      width: 60px;
+      height: 60px;
+      background-color: #dc3545;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      margin: 15px auto 0;
+    }
+
+    .carousel-control-next-icon {
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg fill='white' viewBox='0 0 8 8'%3E%3Cpath d='M2 0l4 4-4 4z'/%3E%3C/svg%3E");
+    }
+
+    .carousel-control-next {
+      width: 3rem;
+      height: 3rem;
+      top: auto;
+      bottom: 20px;
+      right: 20px;
+    }
+
+    .navbar .nav-link {
+      color: white !important;
+      margin-right: 20px;
+    }
+
+    .navbar .nav-link.active {
+      color: #dc3545 !important;
+    }
+
+    .navbar-brand {
+      color: white !important;
+      font-weight: bold;
+    }
+
+    .icon-img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.8;
+}
+
+.work-img {
+  max-width: 75%;
+  height: auto;
+}
+
+/* Bigger, rounded carousel dots */
+.carousel-indicators [data-bs-target] {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #dc3545;
+  opacity: 0.5;
+  margin: 0 6px;
+  transition: opacity 0.3s ease;
+}
+
+.carousel-indicators .active {
+  opacity: 1;
+}
+
+/* Testimonial Image Styling */
+.testimonial-img {
+  width: 90px; /* Increased from 70px */
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ccc;
+  margin-top: 15px;
+}
+
+/* Carousel Dot Styling */
+.carousel-indicators [data-bs-target] {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #333;
+  opacity: 0.4;
+  margin: 0 6px;
+  margin-top: 30px; /* Add margin to bring it closer to cards */
+  transition: opacity 0.3s ease;
+}
+
+.carousel-indicators .active {
+  opacity: 1;
+}
+
+.footer {
+  background: #000;
+  color: #fff;
+  padding: 60px 0 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer .container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 15px;
+}
+
+.footer .row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.footer-col {
+  flex: 1 1 180px;
+  margin-bottom: 30px;
+  min-width: 180px;
+}
+
+.footer-col h5 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-col ul li {
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.footer-col ul li a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+  color: #fff;
+}
+
+.footer .logo {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-transform: lowercase;
+}
+
+.footer .social-links a {
+  display: inline-block;
+  margin-right: 10px;
+  color: #ccc;
+  font-size: 20px;
+  transition: color 0.3s ease;
+}
+
+.footer .social-links a:hover {
+  color: #fff;
+}
+
+.footer .contact-info li {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.footer .contact-info i {
+  margin-right: 8px;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 15px;
+  border-top: 1px solid #333;
+  margin-top: 30px;
+  font-size: 14px;
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-transparent">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">avo</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="work.html">Work</a></li>
+        <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Hero Carousel -->
+  <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+    <div class="carousel-inner">
+
+      <!-- Slide 1 -->
+      <div class="carousel-item active" style="background-image: url('https://preview.colorlib.com/theme/avo/images/bg_1.jpg.webp');">
+        <div class="carousel-overlay"></div>
+        <div class="carousel-content container">
+          <h1 class="hero-title">WE CREATE<br>MODERN & MINIMAL WEBSITE</h1>
+          <p class="hero-subtext">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+          <a href="#" class="btn btn-explore">Explore Projects</a>
+        </div>
+        <div class="right-side-content">
+          <div class="experience-years">21</div>
+          <div class="experience-text">Years of<br>Experienced</div>
+          <div class="play-btn">▶</div>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="carousel-item" style="background-image: url('https://preview.colorlib.com/theme/avo/images/bg_2.jpg.webp');">
+        <div class="carousel-overlay"></div>
+        <div class="carousel-content container">
+          <h1 class="hero-title">CREATIVE & <br> INNOVATIVE DESIGN</h1>
+          <p class="hero-subtext">We craft experiences that help your brand grow with simplicity and elegance.</p>
+          <a href="#" class="btn btn-explore">Explore Projects</a>
+        </div>
+        <div class="right-side-content">
+          <div class="experience-years">21</div>
+          <div class="experience-text">Years of<br>Experienced</div>
+          <div class="play-btn">▶</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Manual control button -->
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+ <!-- ABOUT SECTION -->
+<section class="py-5" id="about">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">ABOUT US</h2>
+    </div>
+
+     <!-- ICONS SECTION -->
+    <div class="row text-center">
+      <div class="col-6 col-md-4 col-lg-2 offset-lg-1">
+        <img src="https://img.icons8.com/ios/50/000000/design.png" class="mb-2 icon-img" alt="UI/UX">
+        <p class="fw-medium">UI/UX Design</p>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <img src="https://img.icons8.com/ios/50/000000/source-code.png" class="mb-2 icon-img" alt="Web Dev">
+        <p class="fw-medium">Web Development</p>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <img src="https://img.icons8.com/ios/50/000000/layers.png" class="mb-2 icon-img" alt="Product Design">
+        <p class="fw-medium">Product Design</p>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <img src="https://img.icons8.com/ios/50/000000/smartphone.png" class="mb-2 icon-img" alt="Mobile App">
+        <p class="fw-medium">Mobile Apps</p>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <img src="download.png" class="mb-2 icon-img" alt="SEO">
+        <p class="fw-medium">SEO</p>
+      </div>
+    </div>
+
+    <div class="row mb-5">
+      <div class="col-md-4 text-end d-flex flex-column justify-content-center">
+        <h3 class="fw-bold">Welcome to AVO A<br>Personal Porfolio Web Agency</h3>
+        <p class="text-muted">Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+      </div>
+      <div class="col-md-4 text-center">
+        <img src="https://preview.colorlib.com/theme/avo/images/about.jpg.webp" class="img-fluid rounded" alt="Office Image">
+      </div>
+      <div class="col-md-4 d-flex flex-column justify-content-center">
+        <p class="text-muted">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+        <a href="#" class="btn btn-danger mt-2" style="width: fit-content;">View all projects</a>
+      </div>
+    </div>
+ <!-- SERVICE ICON ROW -->
+<div class="row text-center mt-5 pt-4 border-top">
+  <!-- Block 01 -->
+  <div class="col-md-4">
+    <h3 class="text-danger display-6 fw-bold">01</h3>
+    <h5 class="fw-bold">Search Engine Optimization</h5>
+    <p class="text-muted small">
+      Far far away, behind the word mountains, far from the countries Vokalia and Consonantia...
+    </p>
+  </div>
+
+  <!-- Block 02 -->
+  <div class="col-md-4">
+    <h3 class="text-danger display-6 fw-bold">02</h3>
+    <h5 class="fw-bold">Search Engine Optimization</h5>
+    <p class="text-muted small">
+      Far far away, behind the word mountains, far from the countries Vokalia and Consonantia...
+    </p>
+  </div>
+
+  <!-- Block 03 -->
+  <div class="col-md-4">
+    <h3 class="text-danger display-6 fw-bold">03</h3>
+    <h5 class="fw-bold">Search Engine Optimization</h5>
+    <p class="text-muted small">
+      Far far away, behind the word mountains, far from the countries Vokalia and Consonantia...
+    </p>
+  </div>
+</div>
+  </div>
+</section>
+
+<!-- OUR WORK SECTION (Heading) -->
+<section class="py-5 text-center" style="background-color: #f8f9fa;">
+  <div class="container">
+    <h2 class="fw-bold">Our Work</h2>
+    <p class="text-muted">Some of our latest projects</p>
+  </div>
+</section>
+
+<!-- WORK ITEM 1 -->
+<section class="py-5" style="background-color: #f8f9fa;">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Left Image -->
+      <div class="col-md-6 mb-4 mb-md-0">
+        <img src="https://preview.colorlib.com/theme/avo/images/work-1.jpg.webp" class="img-fluid work-img" alt="Cassette Tape">
+      </div>
+      <!-- Right Text -->
+      <div class="col-md-6">
+        <p class="text-uppercase small text-muted mb-1">Web Design</p>
+        <h2 class="fw-bold mb-3">Cassette Tape</h2>
+        <p class="text-muted mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+        <div class="d-flex align-items-center mb-3">
+          <img src="https://preview.colorlib.com/theme/avo/images/person_1.jpg.webp" class="rounded-circle me-3" width="40" height="40" alt="">
+          <div>
+            <div class="fw-medium">Jamie Jonson</div>
+            <a href="#" class="text-muted small text-decoration-none">avo.com</a>
+          </div>
+        </div>
+        <a href="#" class="btn btn-outline-dark rounded-0 px-4 py-2">View Portfolio</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK ITEM 2 -->
+<section class="py-5" style="background-color: #f8f9fa;">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Left Text -->
+      <div class="col-md-6 order-md-1 order-2">
+        <p class="text-uppercase small text-muted mb-1">Application</p>
+        <h2 class="fw-bold mb-3">Miniwall Clock</h2>
+        <p class="text-muted mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+        <div class="d-flex align-items-center mb-3">
+          <img src="https://preview.colorlib.com/theme/avo/images/person_2.jpg.webp" class="rounded-circle me-3" width="40" height="40" alt="">
+          <div>
+            <div class="fw-medium">Jamie Jonson</div>
+            <a href="#" class="text-muted small text-decoration-none">avo.com</a>
+          </div>
+        </div>
+        <a href="#" class="btn btn-outline-dark rounded-0 px-4 py-2">View Portfolio</a>
+      </div>
+      <!-- Right Image -->
+      <div class="col-md-6 order-md-2 order-1 mb-4 mb-md-0">
+        <img src="https://preview.colorlib.com/theme/avo/images/work-2.jpg.webp" class="img-fluid work-img" alt="Miniwall Clock">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK ITEM 3 -->
+<section class="py-5" style="background-color: #f8f9fa;">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Left Image -->
+      <div class="col-md-6 mb-4 mb-md-0">
+        <img src="https://preview.colorlib.com/theme/avo/images/work-3.jpg.webp" class="img-fluid work-img" alt="Stereo Speaker">
+      </div>
+      <!-- Right Text -->
+      <div class="col-md-6">
+        <p class="text-uppercase small text-muted mb-1">Product Design</p>
+        <h2 class="fw-bold mb-3">Stereo Speaker</h2>
+        <p class="text-muted mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+        <div class="d-flex align-items-center mb-3">
+          <img src="https://preview.colorlib.com/theme/avo/images/person_1.jpg.webp" class="rounded-circle me-3" width="40" height="40" alt="">
+          <div>
+            <div class="fw-medium">Jamie Jonson</div>
+            <a href="#" class="text-muted small text-decoration-none">avo.com</a>
+          </div>
+        </div>
+        <a href="#" class="btn btn-outline-dark rounded-0 px-4 py-2">View Portfolio</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK ITEM 4 -->
+<section class="py-5" style="background-color: #f8f9fa;">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Left Text -->
+      <div class="col-md-6 order-md-1 order-2">
+        <p class="text-uppercase small text-muted mb-1">Branding</p>
+        <h2 class="fw-bold mb-3">Table Clock</h2>
+        <p class="text-muted mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+        <div class="d-flex align-items-center mb-3">
+          <img src="https://preview.colorlib.com/theme/avo/images/person_2.jpg.webp" class="rounded-circle me-3" width="40" height="40" alt="">
+          <div>
+            <div class="fw-medium">Jamie Jonson</div>
+            <a href="#" class="text-muted small text-decoration-none">avo.com</a>
+          </div>
+        </div>
+        <a href="#" class="btn btn-outline-dark rounded-0 px-4 py-2">View Portfolio</a>
+      </div>
+      <!-- Right Image -->
+      <div class="col-md-6 order-md-2 order-1 mb-4 mb-md-0">
+        <img src="https://preview.colorlib.com/theme/avo/images/work-4.jpg.webp" class="img-fluid work-img" alt="Table Clock">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK ITEM 5 -->
+<section class="py-5" style="background-color: #f8f9fa;">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Left Image -->
+      <div class="col-md-6 mb-4 mb-md-0">
+        <img src="https://preview.colorlib.com/theme/avo/images/work-5.jpg.webp" class="img-fluid work-img" alt="Chair Design">
+      </div>
+      <!-- Right Text -->
+      <div class="col-md-6">
+        <p class="text-uppercase small text-muted mb-1">Furniture</p>
+        <h2 class="fw-bold mb-3">Chair Design</h2>
+        <p class="text-muted mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+        <div class="d-flex align-items-center mb-3">
+          <img src="https://preview.colorlib.com/theme/avo/images/person_1.jpg.webp" class="rounded-circle me-3" width="40" height="40" alt="">
+          <div>
+            <div class="fw-medium">Jamie Jonson</div>
+            <a href="#" class="text-muted small text-decoration-none">avo.com</a>
+          </div>
+        </div>
+        <a href="#" class="btn btn-outline-dark rounded-0 px-4 py-2">View Portfolio</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK ITEM 6 -->
+<section class="py-5" style="background-color: #f8f9fa;">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Left Text -->
+      <div class="col-md-6 order-md-1 order-2">
+        <p class="text-uppercase small text-muted mb-1">Interior</p>
+        <h2 class="fw-bold mb-3">Workspace Setup</h2>
+        <p class="text-muted mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+        <div class="d-flex align-items-center mb-3">
+          <img src="https://preview.colorlib.com/theme/avo/images/person_2.jpg.webp" class="rounded-circle me-3" width="40" height="40" alt="">
+          <div>
+            <div class="fw-medium">Jamie Jonson</div>
+            <a href="#" class="text-muted small text-decoration-none">avo.com</a>
+          </div>
+        </div>
+        <a href="#" class="btn btn-outline-dark rounded-0 px-4 py-2">View Portfolio</a>
+      </div>
+      <!-- Right Image -->
+      <div class="col-md-6 order-md-2 order-1 mb-4 mb-md-0">
+        <img src="https://preview.colorlib.com/theme/avo/images/work-6.jpg.webp" class="img-fluid work-img" alt="Workspace">
+      </div>
+    </div>
+  </div>
+</section>
+    <!--Client section-->
+<!-- CLIENT TESTIMONIAL SECTION -->
+<section class="py-5" style="background-color: #f8f9fa;">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-4">What Our Clients Say About Us</h2>
+
+    <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+      <!-- Indicators -->
+      <div class="carousel-indicators justify-content-center mb-0">
+        <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0" class="active" aria-current="true"></button>
+        <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2"></button>
+        <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="3"></button>
+        <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="4"></button>
+      </div>
+
+      <!-- Slides -->
+      <div class="carousel-inner">
+        <!-- Slide 1 -->
+        <div class="carousel-item active">
+          <div class="row">
+            <!-- Card 1 -->
+            <div class="col-md-4 mb-4">
+              <div class="p-4 bg-white shadow-sm rounded">
+                <p>Far far away, behind the word <br>mountains far from the countries<br>
+                Vokalia and Consonantia, there live<br> the blind text.</p>
+                <img src="images 2.jpg" class="testimonial-img mx-auto" alt="Client 1">
+              </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="col-md-4 mb-4">
+              <div class="p-4 bg-white shadow-sm rounded">
+              <p>Far far away, behind the word <br>mountains far from the countries<br>
+                Vokalia and Consonantia, there live<br> the blind text.</p>
+                <img src="images (1).jpeg" class="testimonial-img mx-auto" alt="Client 2">
+              </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="col-md-4 mb-4">
+              <div class="p-4 bg-white shadow-sm rounded">
+                <p>Far far away, behind the word <br>mountains far from the countries<br>
+                Vokalia and Consonantia, there live<br> the blind text.</p>
+                <img src="images.jpeg" class="testimonial-img mx-auto" alt="Client 3">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="carousel-item">
+          <div class="row">
+            <!-- Card 4 -->
+            <div class="col-md-4 mb-4">
+              <div class="p-4 bg-white shadow-sm rounded">
+                <p>Far far away, behind the word <br>mountains far from the countries<br>
+                Vokalia and Consonantia, there live<br> the blind text.</p>
+                <img src="images (1).jpeg" class="testimonial-img mx-auto" alt="Client 4">
+              </div>
+            </div>
+            <!-- Card 5 -->
+            <div class="col-md-4 mb-4">
+              <div class="p-4 bg-white shadow-sm rounded">
+                <p>Far far away, behind the word <br>mountains far from the countries<br>
+                Vokalia and Consonantia, there live<br> the blind text.</p>
+                <img src="images 2.jpg" class="testimonial-img mx-auto" alt="Client 5">
+              </div>
+            </div>
+            <!-- Card 6 -->
+            <div class="col-md-4 mb-4">
+              <div class="p-4 bg-white shadow-sm rounded">
+                <p>Far far away, behind the word <br>mountains far from the countries<br>
+                Vokalia and Consonantia, there live<br> the blind text.</p>
+                <img src="images.jpeg" class="testimonial-img mx-auto" alt="Client 6">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="carousel-item">
+          <div class="row">
+            <!-- Card 7 -->
+            <div class="col-md-4 mb-4">
+              <div class="p-4 bg-white shadow-sm rounded">
+                <p>Far far away, behind the word <br>mountains far from the countries<br>
+                Vokalia and Consonantia, there live<br> the blind text.</p>
+                <img src="images (1).jpeg" class="testimonial-img mx-auto" alt="Client 7">
+              </div>
+            </div>
+            <!-- Card 8 -->
+            <div class="col-md-4 mb-4">
+              <div class="p-4 bg-white shadow-sm rounded">
+               <p>Far far away, behind the word <br>mountains far from the countries<br>
+                Vokalia and Consonantia, there live<br> the blind text.</p>
+                <img src="images 2.jpg" class="testimonial-img mx-auto" alt="Client 8">
+              </div>
+            </div>
+            <!-- Card 9 -->
+            <div class="col-md-4 mb-4">
+              <div class="p-4 bg-white shadow-sm rounded">
+                <p>Far far away, behind the word <br>mountains far from the countries<br>
+                Vokalia and Consonantia, there live<br> the blind text.</p>
+                <img src="images.jpeg" class="testimonial-img mx-auto" alt="Client 9">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="carousel-item">
+          <div class="row">
+            <!-- Card 10 -->
+            <div class="col-md-4 mb-4">
+              <div class="p-4 bg-white shadow-sm rounded">
+                <p>Far far away, behind the word <br>mountains far from the countries<br>
+                Vokalia and Consonantia, there live<br> the blind text.</p>
+                <img src="images (1).jpeg" class="testimonial-img mx-auto" alt="Client 10">
+              </div>
+            </div>
+            <!-- Card 11 -->
+            <div class="col-md-4 mb-4">
+              <div class="p-4 bg-white shadow-sm rounded">
+               <p>Far far away, behind the word <br>mountains far from the countries<br>
+                Vokalia and Consonantia, there live<br> the blind text.</p>
+                <img src="images 2.jpg" class="testimonial-img mx-auto" alt="Client 11">
+              </div>
+            </div>
+            <!-- Card 12 -->
+            <div class="col-md-4 mb-4">
+              <div class="p-4 bg-white shadow-sm rounded">
+               <p>Far far away, behind the word <br>mountains far from the countries<br>
+                Vokalia and Consonantia, there live<br> the blind text.</p>
+                <img src="images.jpeg" class="testimonial-img mx-auto" alt="Client 12">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="carousel-item">
+          <div class="row">
+            <!-- Card 13 -->
+            <div class="col-md-4 mb-4">
+              <div class="p-4 bg-white shadow-sm rounded">
+                <p>Far far away, behind the word <br>mountains far from the countries<br>
+                Vokalia and Consonantia, there live<br> the blind text.</p>
+                <img src="images (1).jpeg" class="testimonial-img mx-auto" alt="Client 13">
+              </div>
+            </div>
+            <!-- Card 14 -->
+            <div class="col-md-4 mb-4">
+              <div class="p-4 bg-white shadow-sm rounded">
+                <p>Far far away, behind the word <br>mountains far from the countries<br>
+                Vokalia and Consonantia, there live<br> the blind text.</p>
+                <img src="images 2.jpg" class="testimonial-img mx-auto" alt="Client 14">
+              </div>
+            </div>
+            <!-- Card 15 -->
+            <div class="col-md-4 mb-4">
+              <div class="p-4 bg-white shadow-sm rounded">
+                <p>Far far away, behind the word <br>mountains far from the countries<br>
+                Vokalia and Consonantia, there live<br> the blind text.</p>
+                <img src="images.jpeg" class="testimonial-img mx-auto" alt="Client 15">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="my-5">
+  <div class="container text-center">
+    <div class="d-inline-block position-relative" style="width: 1000px; max-width: 100%;">
+      <!-- Rectangular Image -->
+      <img src="https://preview.colorlib.com/theme/avo/images/bg_1.jpg.webp" class="img-fluid rounded" style="height: 350px; object-fit: cover; width: 100%;" alt="Wider Image">
+
+      <!-- Text Overlay on Left -->
+      <div class="position-absolute top-50 start-0 translate-middle-y text-white text-start px-5" style="max-width: 500px;">
+        <h6 class="mb-2" style="color: red;">Get Started</h6>
+        <h2 class="mb-3">Fill in the brief and get the<br>
+        project estimate</h2>
+        <p class="mb-3">Far far away, behind the word <br>mountains far from the countries<br>
+                Vokalia and Consonantia, there live<br> the blind text.</p>
+        <a href="#heroCarousel" class="btn btn-danger px-4 py-2">Get Started</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background-color: #f8f9fa; padding: 60px 0;">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">Recent Blog</h2>
+    </div>
+    <div class="row g-4">
+      <!-- Blog Card 1 -->
+      <div class="col-md-3">
+        <div class="text-center">
+          <h6 class="fw-semibold">Amplify your blockchain team</h6>
+          <img src="https://preview.colorlib.com/theme/avo/images/image_1.jpg" class="img-fluid mb-2" alt="Blog Image">
+          <div class="small text-muted d-flex justify-content-center align-items-center gap-2 mb-1">
+            <span>JUNE 01, 2020</span>
+            <span><i class="bi bi-chat-dots"></i> 3</span>
+          </div>
+          <p class="text-muted small">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia...</p>
+        </div>
+      </div>
+
+      <!-- Blog Card 2 -->
+      <div class="col-md-3">
+        <div class="text-center">
+          <h6 class="fw-semibold">Amplify your blockchain team</h6>
+          <img src="https://preview.colorlib.com/theme/avo/images/image_2.jpg" class="img-fluid mb-2" alt="Blog Image">
+          <div class="small text-muted d-flex justify-content-center align-items-center gap-2 mb-1">
+            <span>JUNE 01, 2020</span>
+            <span><i class="bi bi-chat-dots"></i> 3</span>
+          </div>
+          <p class="text-muted small">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia...</p>
+        </div>
+      </div>
+
+      <!-- Blog Card 3 -->
+      <div class="col-md-3">
+        <div class="text-center">
+          <h6 class="fw-semibold">Amplify your blockchain team</h6>
+          <img src="https://preview.colorlib.com/theme/avo/images/image_3.jpg" class="img-fluid mb-2" alt="Blog Image">
+          <div class="small text-muted d-flex justify-content-center align-items-center gap-2 mb-1">
+            <span>JUNE 01, 2020</span>
+            <span><i class="bi bi-chat-dots"></i> 3</span>
+          </div>
+          <p class="text-muted small">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia...</p>
+        </div>
+      </div>
+
+      <!-- Blog Card 4 -->
+      <div class="col-md-3">
+        <div class="text-center">
+          <h6 class="fw-semibold">Amplify your blockchain team</h6>
+          <img src="https://preview.colorlib.com/theme/avo/images/image_4.jpg" class="img-fluid mb-2" alt="Blog Image">
+          <div class="small text-muted d-flex justify-content-center align-items-center gap-2 mb-1">
+            <span>JUNE 01, 2020</span>
+            <span><i class="bi bi-chat-dots"></i> 3</span>
+          </div>
+          <p class="text-muted small">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Avo-style Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <!-- Logo and description -->
+      <div class="footer-col">
+        <h5 class="logo">avo</h5>
+        <p>Far far away, behind<br> the word mountains,<br> far from the countries.</p>
+        <div class="social-links">
+          <a href="#"><i class="bi bi-twitter"></i></a>
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-instagram"></i></a>
+        </div>
+      </div>
+
+      <!-- Community -->
+      <div class="footer-col">
+        <h5>Community</h5>
+        <ul>
+          <li><a href="#">Projects</a></li>
+          <li><a href="#">Team</a></li>
+          <li><a href="#">Reviews</a></li>
+          <li><a href="#">FAQs</a></li>
+        </ul>
+      </div>
+
+      <!-- About Us -->
+      <div class="footer-col">
+        <h5>About Us</h5>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Meet the team</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+
+      <!-- Company -->
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="footer-col">
+        <h5>Have a Questions?</h5>
+        <ul class="contact-info">
+          <li><i class="bi bi-geo-alt"></i> 203 Fake St. Mountain View,<br>San Francisco, California, USA</li>
+          <li><i class="bi bi-telephone"></i> +2 392 3929 210</li>
+          <li><i class="bi bi-envelope"></i> info@yourdomain.com</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Copyright -->
+  <div class="footer-bottom">
+    <p>Copyright &copy;2025 All rights reserved | This template is made with <i class="bi bi-heart-fill text-danger"></i> by <span style="color: #f55;">Colorlib</span></p>
+  </div>
+</footer>
+
+
+</body>
+</html>
